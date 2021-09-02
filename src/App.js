@@ -1,25 +1,88 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from "react";
+import "./App.css";
+import axios from "axios";
 
-function App() {
+export default function App() {
+  const [tasks, setTasks] = useState([]);
+  const [state, setState] = useState({
+    title: ""
+  });
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/tasks/")
+      .then((response) => setTasks(response.data))
+      .catch(err => console.log(err));
+  }, []);
+
+  function updateTitle(e) {
+    setState({
+      ...state,
+      title: e.target.value
+    });
+  }
+
+  /*async function saveTask() {
+    try {
+      const response = await axios.post('https://jsonplaceholder.typicode.com/todos/', { title: state.title })
+      setTasks((tasks) => tasks.concat(response.data));
+      setState((state) => ({
+        ...state,
+        title: ""
+      }));
+    } catch (err) {
+      // manejo del error
+      console.log(err)
+    }
+  }*/
+
+  function saveTask() {
+    axios
+      .post("http://localhost:3001/tasks", {
+        title: state.title
+      })
+      .then((response) => {
+        setTasks((tasks) => tasks.concat(response.data));
+        setState((state) => ({
+          ...state,
+          title: ""
+        }));
+      });
+  }
+
+  function deleteTask(e, task) {
+    e.preventDefault(); // prevenimos el comportamiento por defecto
+    axios.delete(`http://localhost:3001/tasks/${task.id}`)
+      .then(() => setTasks(tasks.filter(t => t.id !== task.id)))
+      .catch(err => console.log(err))
+  }
+
+  function toggleTask(idx) {
+    setTasks(
+      tasks.map((task, i) => (i === idx ? { ...task, done: !task.done } : task))
+    );
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Lista de Tareas</h1>
+      <ul className="tasks">
+        {tasks.map((task) => (
+          <li key={task.id}>
+            <span
+              className={task.completed ? "done" : null}
+              onClick={() => toggleTask(task)}
+            >
+              {task.title}
+            </span>{" "}
+            <a href="#" onClick={(e) => deleteTask(e, task)}>
+              x
+            </a>
+          </li>
+        ))}
+      </ul>
+      <input type="text" value={state.title} onChange={updateTitle} />
+      <button onClick={saveTask}>Crear Tarea</button>
     </div>
   );
 }
-
-export default App;
