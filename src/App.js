@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-import axios from "axios";
+import axios from "./axios";
 
 export default function App() {
   const [tasks, setTasks] = useState([]);
@@ -10,7 +10,7 @@ export default function App() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/tasks/")
+      .get("/tasks/")
       .then((response) => setTasks(response.data))
       .catch((err) => console.log(err));
   }, []);
