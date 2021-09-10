@@ -1,21 +1,27 @@
-import  { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import { Provider } from 'react-redux'
+import  { Router, Switch, Route } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import Tasks from './Tasks'
 import Login from './Login'
-import { store } from './store'
+import PrivateRoute from './PrivateRoute'
+import history from './history'
 import "./App.css"
 
+function Alert({ type="info", children }) {
+  return <p className={`alert alert-${type}`}>{children}</p>
+}
+
 export default function App() {
+  const error = useSelector(state => state.error)
   return (
-    <Provider store={store}>
-      <div className="app">
-        <Router>
-          <Switch>
-            <Route exact path="/" component={Tasks} />
-            <Route exact path="/login" component={Login} />
-          </Switch>
-        </Router>
-      </div>
-    </Provider>
+    <div className="app">
+      <Router history={history}>
+        <Switch>
+          <PrivateRoute exact path="/" component={Tasks} />
+          <Route exact path="/login" component={Login} />
+        </Switch>
+      </Router>
+
+      { error ? <Alert type="error">{error}</Alert> : null }
+    </div>
   )
 }

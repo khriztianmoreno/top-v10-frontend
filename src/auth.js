@@ -9,4 +9,5 @@ async function login(email, password) {
   store.dispatch({ type: "LOGIN", payload: user })
 }
 
-export default { login }
+const auth = { login }
+export default auth

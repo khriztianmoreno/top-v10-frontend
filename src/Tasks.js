@@ -90,9 +90,9 @@ function Tasks() {
               >
                 {task.title}
               </span>{" "}
-              <a href="#" onClick={(e) => deleteTask(e, task)}>
+              <button onClick={(e) => deleteTask(e, task)}>
                 x
-              </a>
+              </button>
             </li>
           ))}
       </ul>

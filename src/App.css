@@ -1,3 +1,8 @@
 .done {
   text-decoration: line-through;
 }
+
+.alert-error { 
+  color: red;
+  font-weight: bold;
+}
