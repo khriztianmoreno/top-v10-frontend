@@ -35,6 +35,9 @@ function Tasks() {
     }
   }*/
 
+  // 1. Agregar la lógica al reducer
+  // 2. Crear el actionCreator
+  // 3. Hacer el dispatch desde el saveTask 
   function saveTask() {
     axios
       .post("http://localhost:3001/tasks", {
