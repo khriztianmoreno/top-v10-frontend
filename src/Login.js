@@ -10,7 +10,6 @@ function Login() {
     e.preventDefault()
 
     const { email, password } = state
-    // auth.login(dispatch, email, password)
     dispatch(loginAction(email, password))
   }
 
