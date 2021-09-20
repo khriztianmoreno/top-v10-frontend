@@ -83,7 +83,7 @@ function Tasks() {
       <ul className="tasks">
         {tasks.length > 0 &&
           tasks.map((task) => (
-            <li key={task.id}>
+            <li key={task.id} data-testid="task-item">
               <span
                 className={task.completed ? "done" : null}
                 onClick={() => toggleTask(task)}

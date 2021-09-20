@@ -36,6 +36,6 @@ export function login(email, password) {
 export function loadTasks() {
   return async function(dispatch) {
     const response = await axios.get('/tasks')
-    dispatch({ type: LOAD_TASKS, payload: response.data})
+    dispatch({ type: LOAD_TASKS, payload: response.data.data })
   }
 }

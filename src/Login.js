@@ -24,11 +24,14 @@ function Login() {
   }
 
   return (
-    <form onSubmit={login}>
-      <input type="text" name="email" value={state.email} onChange={handleChange} />
-      <input type="password" name="password" value={state.password} onChange={handleChange} />
-      <button type="submit">Ingresar</button>
-    </form>
+    <>
+      <h1>Login</h1>
+      <form onSubmit={login} data-testid="form">
+        <input type="text" name="email" data-testid="email" value={state.email} onChange={handleChange} />
+        <input type="password" data-testid="password" name="password" value={state.password} onChange={handleChange} />
+        <button type="submit">Ingresar</button>
+      </form>
+    </>
   )
 }
 
