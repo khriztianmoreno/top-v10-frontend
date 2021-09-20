@@ -2,6 +2,7 @@ import  { Router, Switch, Route } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Tasks from './Tasks'
 import Login from './Login'
+import Register from './Register'
 import PrivateRoute from './PrivateRoute'
 import history from './history'
 import { loadUser } from './actionCreators'
@@ -31,6 +32,7 @@ export default function App() {
         <Switch>
           <PrivateRoute exact path="/" component={Tasks} />
           <Route exact path="/login" component={Login} />
+          <Route exact path="/register" component={Register} />
         </Switch>
       </Router>
 
