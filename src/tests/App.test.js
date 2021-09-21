@@ -23,7 +23,7 @@ test('renders register component', () => {
 test('renders login component', () => {
   history.push('/login')
   render(<Provider store={store}><App /></Provider>);
-  expect(screen.getByText(/Login/i)).toBeInTheDocument();
+  expect(screen.getAllByText(/Login/i).length).toBeGreaterThan(0);
 })
 
 test('redirects to login if not authenticated', () => {

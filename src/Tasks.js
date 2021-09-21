@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Task from './Task';
 import axios from "./axios";
 import { loadTasks } from './actionCreators'
 
@@ -82,19 +83,7 @@ function Tasks() {
       <h1>Lista de Tareas</h1>
       <ul className="tasks">
         {tasks.length > 0 &&
-          tasks.map((task) => (
-            <li key={task.id} data-testid="task-item">
-              <span
-                className={task.completed ? "done" : null}
-                onClick={() => toggleTask(task)}
-              >
-                {task.title}
-              </span>{" "}
-              <button onClick={(e) => deleteTask(e, task)}>
-                x
-              </button>
-            </li>
-          ))}
+          tasks.map((task) => <Task key={task.id} task={task} toggleTask={toggleTask} deleteTask={deleteTask} />)}
       </ul>
       <input type="text" value={state.title} onChange={updateTitle} />
       <button onClick={saveTask}>Crear Tarea</button>

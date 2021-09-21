@@ -36,7 +36,7 @@ export default function App() {
         </Switch>
       </Router>
 
-      { error ? <Alert type="error">{error}</Alert> : null }
+      { error ? <Alert type="error" >{error}</Alert> : null }
     </div>
   )
 }
