@@ -7,7 +7,7 @@ import createStore from '../store'
 import { TOKEN } from '../constants'
 import App from '../App'
 
-jest.mock('../axios'); 
+jest.mock('../axios');
 
 let store;
 beforeEach(() => {
