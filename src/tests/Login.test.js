@@ -3,7 +3,6 @@ import { Provider } from 'react-redux';
 import history from '../history'
 import axios from '../axios'
 import createStore from '../store'
-import { TOKEN } from '../constants'
 import Login from '../Login'
 
 jest.mock('../axios'); 
