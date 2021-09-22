@@ -1,4 +1,12 @@
-import { LOGIN, LOGOUT, LOAD_TASKS, ERROR, LOADING, AUTHENTICATED, NOT_AUTHENTICATED } from './constants'
+import {
+  LOGIN,
+  LOGOUT,
+  LOAD_TASKS,
+  ERROR,
+  LOADING,
+  AUTHENTICATED,
+  NOT_AUTHENTICATED,
+} from './constants';
 
 const initialState = {
   auth: {
@@ -6,33 +14,51 @@ const initialState = {
     user: null,
   },
   tasks: [],
-  error: null
-}
+  error: null,
+};
 
-const reducer = function(state=initialState, action) {
+const reducer = (state = initialState, action) => {
   if (action.type === LOGIN) {
-    return { ...state, auth: { 
-      status: AUTHENTICATED,
-      user: action.payload 
-    }}
-  } else if (action.type === LOGOUT) {
-    return { ...state, auth: { status: NOT_AUTHENTICATED, user: null } }
-  } else if (action.type === ERROR) {
-    const error = action.payload
-    let msg = "Encontramos un error desconocido, intena nuevamente o comu ..."
-    if (error.name === "NetworkError") {
-      msg = "Encontra ..."
+    return {
+      ...state,
+      auth: {
+        status: AUTHENTICATED,
+        user: action.payload,
+      },
+    };
+  }
+  if (action.type === LOGOUT) {
+    return {
+      ...state,
+      auth: {
+        status: NOT_AUTHENTICATED,
+        user: null,
+      },
+    };
+  }
+  if (action.type === ERROR) {
+    const error = action.payload;
+    let msg = 'Encontramos un error desconocido, intena nuevamente o comu ...';
+    if (error.name === 'NetworkError') {
+      msg = 'Encontra ...';
     } else if (error.response) {
       if (error.response.status === 401) {
-        msg = error.response.data.message
+        msg = error.response.data.message;
       }
     }
-    return { ...state, error: msg }
-  } else if (action.type === LOAD_TASKS) {
-    return { ...state, tasks: action.payload }
+    return {
+      ...state,
+      error: msg,
+    };
+  }
+  if (action.type === LOAD_TASKS) {
+    return {
+      ...state,
+      tasks: action.payload,
+    };
   }
 
-  return state
-}
+  return state;
+};
 
-export default reducer
+export default reducer;

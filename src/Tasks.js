@@ -1,18 +1,18 @@
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Task from './Task';
-import axios from "./axios";
-import { loadTasks } from './actionCreators'
+import axios from './axios';
+import { loadTasks } from './actionCreators';
 
 function Tasks() {
-  const tasks = useSelector(state => state.tasks)
+  const tasks = useSelector((state) => state.tasks);
   const [state, setState] = useState({
-    title: "",
+    title: '',
   });
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(loadTasks())
+    dispatch(loadTasks());
   }, [dispatch]);
 
   function updateTitle(e) {
@@ -22,46 +22,46 @@ function Tasks() {
     });
   }
 
-  /*async function saveTask() {
-    try {
-      const response = await axios.post('https://jsonplaceholder.typicode.com/todos/', { title: state.title })
-      setTasks((tasks) => tasks.concat(response.data));
-      setState((state) => ({
-        ...state,
-        title: ""
-      }));
-    } catch (err) {
-      // manejo del error
-      console.log(err)
-    }
-  }*/
+  // async function saveTask() {
+  //   try {
+  //     const response = await axios.post('https://jsonplaceholder.typicode.com/todos/', { title: state.title })
+  //     setTasks((tasks) => tasks.concat(response.data));
+  //     setState((state) => ({
+  //       ...state,
+  //       title: ""
+  //     }));
+  //   } catch (err) {
+  //     // manejo del error
+  //     console.log(err)
+  //   }
+  // }
 
   // 1. Agregar la lógica al reducer
   // 2. Crear el actionCreator
-  // 3. Hacer el dispatch desde el saveTask 
+  // 3. Hacer el dispatch desde el saveTask
   function saveTask() {
     axios
-      .post("http://localhost:3001/tasks", {
+      .post('http://localhost:3001/tasks', {
         title: state.title,
       })
-      .then((response) => {
+      .then(() => {
         // setTasks((tasks) => tasks.concat(response.data));
-        setState((state) => ({
-          ...state,
-          title: "",
+        setState((prevState) => ({
+          ...prevState,
+          title: '',
         }));
       });
   }
 
-  function deleteTask(e, task) {
+  const deleteTask = (e) => {
     e.preventDefault(); // prevenimos el comportamiento por defecto
     // axios
     //   .delete(`http://localhost:3001/tasks/${task.id}`)
     //   .then(() => setTasks(tasks.filter((t) => t.id !== task.id)))
     //   .catch((err) => console.log(err));
-  }
+  };
 
-  function toggleTask(task) {
+  const toggleTask = (task) => {
     axios
       .put(`http://localhost:3001/tasks/${task.id}`, {
         data: {
@@ -76,19 +76,28 @@ function Tasks() {
         //   )
         // );
       });
-  }
+  };
 
   return (
     <div className="App">
       <h1>Lista de Tareas</h1>
       <ul className="tasks">
         {tasks.length > 0 &&
-          tasks.map((task) => <Task key={task.id} task={task} toggleTask={toggleTask} deleteTask={deleteTask} />)}
+          tasks.map((task) => (
+            <Task
+              key={task.id}
+              task={task}
+              toggleTask={toggleTask}
+              deleteTask={deleteTask}
+            />
+          ))}
       </ul>
       <input type="text" value={state.title} onChange={updateTitle} />
-      <button onClick={saveTask}>Crear Tarea</button>
+      <button type="button" onClick={saveTask}>
+        Crear Tarea
+      </button>
     </div>
   );
 }
 
-export default Tasks
+export default Tasks;

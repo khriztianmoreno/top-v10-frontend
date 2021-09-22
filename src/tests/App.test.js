@@ -1,44 +1,80 @@
-import { render, screen, waitFor, fireEvent } from '@testing-library/react';
+/* eslint-disable comma-dangle */
+import { render, screen, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
-import history from '../history'
-import createStore from '../store'
-import { TOKEN } from '../constants'
-import App from '../App'
+import axios from 'axios';
+
+import history from '../history';
+import createStore from '../store';
+import { TOKEN } from '../constants';
+import App from '../App';
 
 let store;
 beforeEach(() => {
-  localStorage.clear()
-  store = createStore()
-})
+  localStorage.clear();
+  store = createStore();
+});
 
 test('renders register component', () => {
-  history.push('/register')
-  render(<Provider store={store}><App /></Provider>);
+  history.push('/register');
+  render(
+    <Provider store={store}>
+      <App />
+    </Provider>
+  );
   expect(screen.getByText(/Register/i)).toBeInTheDocument();
 });
 
 test('renders login component', () => {
-  history.push('/login')
-  render(<Provider store={store}><App /></Provider>);
+  history.push('/login');
+  render(
+    <Provider store={store}>
+      <App />
+    </Provider>
+  );
   expect(screen.getAllByText(/Login/i).length).toBeGreaterThan(0);
-})
+});
 
 test('redirects to login if not authenticated', () => {
-  history.push('/')
-  render(<Provider store={store}><App /></Provider>);
+  history.push('/');
+  render(
+    <Provider store={store}>
+      <App />
+    </Provider>
+  );
   expect(screen.getByText(/Login/i)).toBeInTheDocument();
-})
+});
 
 test('renders root if authenticated', async () => {
+  // preparación
+  axios.get.mockResolvedValueOnce({
+    data: {
+      email: 'test@example.com',
+      fistName: 'Pedro',
+      lastName: 'Perez',
+    },
+  });
+  axios.get.mockResolvedValueOnce({
+    data: {
+      count: 1,
+      page: 1,
+      data: [{ title: 'A', completed: false, id: '1234' }],
+    },
+  });
 
-  localStorage.setItem(TOKEN, "123355")
-  history.push('/')
+  localStorage.setItem(TOKEN, '123355');
+  history.push('/');
 
-  render(<Provider store={store}><App /></Provider>);
-  await waitFor(() => expect(screen.queryAllByTestId("task-item")).toHaveLength(1))
+  render(
+    <Provider store={store}>
+      <App />
+    </Provider>
+  );
+  await waitFor(() =>
+    expect(screen.queryAllByTestId('task-item')).toHaveLength(1)
+  );
 
-  expect(screen.getByText(/Lista de Tareas/i)).toBeInTheDocument()
-})
+  expect(screen.getByText(/Lista de Tareas/i)).toBeInTheDocument();
+});
 
 // Tipos de pruebas
 // 1. Que las rutas rendericen los componentes correctos
@@ -50,4 +86,4 @@ test('renders root if authenticated', async () => {
 // Mocks - simular un objeto o una función
 // Fakes - crear un objeto similar que provee una funcionalidad diferente.
 // Spies - se utiliza para validar llamados a funciones.
-// Stubbing - 
+// Stubbing -
