@@ -1,31 +1,41 @@
-import  { Router, Switch, Route } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import Tasks from './Tasks'
-import Login from './Login'
-import Register from './Register'
-import UploadImage from './UploadImage'
-import PrivateRoute from './PrivateRoute'
-import history from './history'
-import { loadUser } from './actionCreators'
-import "./App.css"
-import { useEffect } from 'react'
-import { LOGOUT, TOKEN } from './constants'
+import { useEffect } from 'react';
+import { Router, Switch, Route } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 
-function Alert({ type="info", children }) {
-  return <p className={`alert alert-${type}`}>{children}</p>
+import Tasks from './Tasks';
+import Login from './Login';
+import Register from './Register';
+import PrivateRoute from './PrivateRoute';
+import UploadImage from './UploadImage';
+import history from './history';
+import { loadUser } from './actionCreators';
+import { LOGOUT, TOKEN } from './constants';
+
+import './App.css';
+
+function Alert({ type = 'info', children }) {
+  return <p className={`alert alert-${type}`}>{children}</p>;
 }
 
+Alert.propTypes = {
+  type: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+};
+
 export default function App() {
-  const error = useSelector(state => state.error)
-  const dispatch = useDispatch()
+  const error = useSelector((state) => state.error);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (localStorage.getItem(TOKEN)) {
-      dispatch(loadUser())
+      dispatch(loadUser());
     } else {
-      dispatch({ type: LOGOUT })
+      dispatch({
+        type: LOGOUT,
+      });
     }
-  }, [dispatch])
+  }, [dispatch]);
 
   return (
     <div className="app">
@@ -38,7 +48,7 @@ export default function App() {
         </Switch>
       </Router>
 
-      { error ? <Alert type="error" >{error}</Alert> : null }
+      {error ? <Alert type="error">{error}</Alert> : null}
     </div>
-  )
+  );
 }
