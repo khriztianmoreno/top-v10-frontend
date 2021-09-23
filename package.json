@@ -73,6 +73,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.26.0",
     "eslint-plugin-react-hooks": "^4.2.0",
-    "eslint-plugin-testing-library": "^4.12.3"
+    "eslint-plugin-testing-library": "^4.12.3",
+    "storybook-addon-grid": "0.0.13"
   }
 }

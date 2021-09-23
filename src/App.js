@@ -11,6 +11,7 @@ import UploadImage from './UploadImage';
 import history from './history';
 import { loadUser } from './actionCreators';
 import { LOGOUT, TOKEN } from './constants';
+import Card from './components/Card';
 
 import './App.css';
 
@@ -45,6 +46,7 @@ export default function App() {
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/upload" component={UploadImage} />
+          <Route exact path="/card" component={Card} />
         </Switch>
       </Router>
 
