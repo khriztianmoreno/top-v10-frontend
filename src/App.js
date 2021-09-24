@@ -1,6 +1,5 @@
-import { useEffect } from 'react';
 import { Router, Switch, Route } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import Tasks from './Tasks';
@@ -9,8 +8,8 @@ import Register from './Register';
 import PrivateRoute from './PrivateRoute';
 import UploadImage from './UploadImage';
 import history from './history';
-import { loadUser } from './actionCreators';
-import { LOGOUT, TOKEN } from './constants';
+// import { loadUser } from './actionCreators';
+// import { LOGOUT, TOKEN } from './constants';
 import Card from './components/Card';
 
 import './App.css';
@@ -26,17 +25,17 @@ Alert.propTypes = {
 
 export default function App() {
   const error = useSelector((state) => state.error);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (localStorage.getItem(TOKEN)) {
-      dispatch(loadUser());
-    } else {
-      dispatch({
-        type: LOGOUT,
-      });
-    }
-  }, [dispatch]);
+  // useEffect(() => {
+  //   if (localStorage.getItem(TOKEN)) {
+  //     dispatch(loadUser());
+  //   } else {
+  //     dispatch({
+  //       type: LOGOUT,
+  //     });
+  //   }
+  // }, [dispatch]);
 
   return (
     <div className="app">

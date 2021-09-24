@@ -1,3 +1,4 @@
+/* eslint-disable no-debugger */
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Task from './Task';
@@ -22,36 +23,29 @@ function Tasks() {
     });
   }
 
-  // async function saveTask() {
-  //   try {
-  //     const response = await axios.post('https://jsonplaceholder.typicode.com/todos/', { title: state.title })
-  //     setTasks((tasks) => tasks.concat(response.data));
-  //     setState((state) => ({
-  //       ...state,
-  //       title: ""
-  //     }));
-  //   } catch (err) {
-  //     // manejo del error
-  //     console.log(err)
-  //   }
-  // }
-
-  // 1. Agregar la lógica al reducer
-  // 2. Crear el actionCreator
-  // 3. Hacer el dispatch desde el saveTask
-  function saveTask() {
-    axios
-      .post('http://localhost:3001/tasks', {
-        title: state.title,
-      })
-      .then(() => {
-        // setTasks((tasks) => tasks.concat(response.data));
-        setState((prevState) => ({
-          ...prevState,
-          title: '',
-        }));
-      });
-  }
+  const saveTask = async (ev) => {
+    ev.preventDefault();
+    try {
+      const payload = {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+        body: JSON.stringify({
+          title: state.title,
+        }),
+      };
+      await fetch('http://localhost:3001/tasks', payload);
+      debugger;
+      setState((prevState) => ({
+        ...prevState,
+        title: '',
+      }));
+    } catch (error) {
+      console.log('error', error);
+    }
+  };
 
   const deleteTask = (e) => {
     e.preventDefault(); // prevenimos el comportamiento por defecto
@@ -92,10 +86,10 @@ function Tasks() {
             />
           ))}
       </ul>
-      <input type="text" value={state.title} onChange={updateTitle} />
-      <button type="button" onClick={saveTask}>
-        Crear Tarea
-      </button>
+      <form onSubmit={saveTask}>
+        <input type="text" value={state.title} onChange={updateTitle} />
+        <button type="submit">Crear Tarea</button>
+      </form>
     </div>
   );
 }

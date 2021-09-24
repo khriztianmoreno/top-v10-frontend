@@ -11,4 +11,4 @@ export const AUTHENTICATED = 'AUTHENTICATED';
 export const NOT_AUTHENTICATED = 'NOT_AUTHENTICATED';
 
 // Local Storage
-export const TOKEN = 'token';
+export const TOKEN = 'TOKEN';
