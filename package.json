@@ -2,7 +2,7 @@
   "name": "tasks",
   "version": "0.1.0",
   "private": true,
-  "homepage": "top-v10-frontend",
+  "homepage": "https://khriztianmoreno.github.io/top-v10-frontend/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
