@@ -41,11 +41,11 @@ export default function App() {
     <div className="app">
       <Router history={history}>
         <Switch>
-          <PrivateRoute exact path="/" component={Tasks} />
+          <PrivateRoute exact path="/" component={Card} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/upload" component={UploadImage} />
-          <Route exact path="/card" component={Card} />
+          <Route exact path="/tasks" component={Tasks} />
         </Switch>
       </Router>
 
