@@ -37,12 +37,12 @@ function Tasks() {
         }),
       };
       await fetch('http://localhost:3001/tasks', payload);
-      debugger;
       setState((prevState) => ({
         ...prevState,
         title: '',
       }));
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.log('error', error);
     }
   };
